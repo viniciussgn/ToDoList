@@ -1,0 +1,46 @@
+﻿@model ToDoList_Projeto_Portifólio.Models.Tarefa
+
+<h2>Nova Tarefa</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Adicionar" method="post" asp-route-id="@((ViewBag.Filtros != null) ? ViewBag.Filtros.FiltroString : "")">
+
+    <div class="mb-3">
+        <label asp-for="Descricao" class="form-label">Descrição</label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoriaId" class="form-label">Categoria</label>
+        <select asp-for="CategoriaId" class="form-select"
+                asp-items="@(ViewBag.Categorias != null
+                            ? new SelectList(ViewBag.Categorias, "CategoriaId", "Nome")
+                            : Enumerable.Empty<SelectListItem>())">
+            <option value="">Selecione uma categoria</option>
+        </select>
+        <span asp-validation-for="CategoriaId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DataDeVencimento" class="form-label">Data de Vencimento</label>
+        <input asp-for="DataDeVencimento" type="date" class="form-control" />
+        <span asp-validation-for="DataDeVencimento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="StatusId" class="form-label">Situação</label>
+        <select asp-for="StatusId" class="form-select"
+                asp-items="@(ViewBag.Status != null
+                            ? new SelectList(ViewBag.Status, "StatusId", "Nome")
+                            : Enumerable.Empty<SelectListItem>())">
+            <option value="">Selecione o status</option>
+        </select>
+        <span asp-validation-for="StatusId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Adicionar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+</form>
